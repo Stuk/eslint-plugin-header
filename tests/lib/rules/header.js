@@ -29,6 +29,15 @@ ruleTester.run("header", rule, {
         {
             code: "/*Copyright 2015\nMy Company*/\nconsole.log(1)",
             options: ["block", ["Copyright 2015", "My Company"]]
+        },
+        {
+            code: "/*************************\n * Copyright 2015\n * My Company\n *************************/\nconsole.log(1)",
+            options: ["block", [
+                "************************",
+                " * Copyright 2015",
+                " * My Company",
+                " ************************"
+            ]]
         }
     ],
     invalid: [
