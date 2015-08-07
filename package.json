@@ -9,7 +9,6 @@
   },
   "devDependencies": {
     "eslint": "^1.0.0",
-    "eslint-tester": "^0.8.2",
     "mocha": "^2.2.5"
   },
   "peerDependencies": {
@@ -19,6 +18,10 @@
     "eslint",
     "eslintplugin"
   ],
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/Stuk/eslint-plugin-header.git"
+  },
   "author": "Stuart Knightley",
   "license": "MIT"
 }
