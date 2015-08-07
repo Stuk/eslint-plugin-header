@@ -1,0 +1,24 @@
+{
+  "name": "eslint-plugin-header",
+  "version": "0.0.1",
+  "description": "ESLint plugin to ensure that files begin with given comment",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/**/*.js",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^1.0.0",
+    "eslint-tester": "^0.8.2",
+    "mocha": "^2.2.5"
+  },
+  "peerDependencies": {
+    "eslint": ">=0.18.0"
+  },
+  "keywords": [
+    "eslint",
+    "eslintplugin"
+  ],
+  "author": "Stuart Knightley",
+  "license": "MIT"
+}
