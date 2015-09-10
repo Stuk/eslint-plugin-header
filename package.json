@@ -4,7 +4,7 @@
   "description": "ESLint plugin to ensure that files begin with given comment",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/**/*.js",
+    "test": "mocha tests/lib/*.js tests/lib/**/*.js",
     "lint": "eslint ."
   },
   "devDependencies": {
