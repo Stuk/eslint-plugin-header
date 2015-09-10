@@ -7,7 +7,35 @@ Often you will want to have a copyright notice at the top of every file. This ES
 
 ## Usage
 
-This rule takes 2 arguments, the first must be either `"block"` or `"line"` to indiciate what style of comment should be used. The second is either a string (including newlines) of the comment, or an array of each line of the comment.
+This rule takes 1 or 2 arguments.
+
+### 1 argument
+
+In the 1 argument form the argument is the filename of a file that contains the comment(s) that should appear at the top of every file:
+
+```json
+{
+    "plugins": [
+        "header"
+    ],
+    "rules": {
+        "header/header": [2, "config/header.js"]
+    }
+}
+```
+
+config/header.js:
+
+```js
+// Copyright 2015
+// My company
+```
+
+Due to limitations in eslint plugins, the file is read relative to the working directory that eslint is executed in. If you run eslint from elsewhere in your tree then the header file will not be found.
+
+### 2 arguments
+
+In the 2 argument form the first must be either `"block"` or `"line"` to indiciate what style of comment should be used. The second is either a string (including newlines) of the comment, or an array of each line of the comment.
 
 ```json
 {
