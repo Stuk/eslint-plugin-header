@@ -38,6 +38,14 @@ ruleTester.run("header", rule, {
                 " * My Company",
                 " ************************"
             ]]
+        },
+        {
+            code: "/*\nCopyright 2015\nMy Company\n*/\nconsole.log(1)",
+            options: ["tests/support/block.js"]
+        },
+        {
+            code: "// Copyright 2015\n// My Company\nconsole.log(1)",
+            options: ["tests/support/line.js"]
         }
     ],
     invalid: [
@@ -75,7 +83,6 @@ ruleTester.run("header", rule, {
             errors: [
                 {message: "incorrect header"}
             ]
-
         }
     ]
 });
