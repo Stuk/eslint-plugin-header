@@ -83,6 +83,13 @@ ruleTester.run("header", rule, {
             errors: [
                 {message: "incorrect header"}
             ]
+        },
+        {
+            code: "//Copyright 2015",
+            options: ["line", "Copyright 2015\nMy Company"],
+            errors: [
+                {message: "incorrect header"}
+            ]
         }
     ]
 });
