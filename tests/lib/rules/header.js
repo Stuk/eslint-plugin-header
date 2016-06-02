@@ -46,6 +46,10 @@ ruleTester.run("header", rule, {
         {
             code: "// Copyright 2015\n// My Company\nconsole.log(1)",
             options: ["tests/support/line.js"]
+        },
+        {
+            code: "//Copyright 2015\n//My Company\n/* DOCS */",
+            options: ["line", "Copyright 2015\nMy Company"]
         }
     ],
     invalid: [
