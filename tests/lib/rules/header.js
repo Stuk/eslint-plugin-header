@@ -50,7 +50,19 @@ ruleTester.run("header", rule, {
         {
             code: "//Copyright 2015\n//My Company\n/* DOCS */",
             options: ["line", "Copyright 2015\nMy Company"]
-        }
+        },
+        {
+            code: "// Copyright 2017",
+            options: ["line", {pattern: "^ Copyright \\d+$"}]
+        },
+        {
+            code: "// Copyright 2017\n// Author: abc@example.com",
+            options: ["line", [{pattern: "^ Copyright \\d+$"}, {pattern: "^ Author: \\w+@\\w+\\.\\w+$"}]]
+        },
+        {
+            code: "/* Copyright 2017\n Author: abc@example.com */",
+            options: ["block", {pattern: "^ Copyright \\d{4}\\n Author: \\w+@\\w+\\.\\w+ $"}]
+        },
     ],
     invalid: [
         {
@@ -94,6 +106,27 @@ ruleTester.run("header", rule, {
             errors: [
                 {message: "incorrect header"}
             ]
-        }
+        },
+        {
+            code: "// Copyright 2017 trailing",
+            options: ["line", {pattern: "^ Copyright \\d+$"}],
+            errors: [
+                {message: "incorrect header"}
+            ]
+        },
+        {
+            code: "// Copyright 2017\n// Author: ab-c@example.com",
+            options: ["line", [{pattern: "Copyright \\d+"}, {pattern: "^ Author: \\w+@\\w+\\.\\w+$"}]],
+            errors: [
+                {message: "incorrect header"}
+            ]
+        },
+        {
+            code: "/* Copyright 2017-01-02\n Author: abc@example.com */",
+            options: ["block", {pattern: "^ Copyright \\d+\\n Author: \\w+@\\w+\\.\\w+ $"}],
+            errors: [
+                {message: "incorrect header"}
+            ]
+        },
     ]
 });

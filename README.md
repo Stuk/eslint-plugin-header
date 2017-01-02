@@ -48,6 +48,19 @@ In the 2 argument form the first must be either `"block"` or `"line"` to indicia
 }
 ```
 
+Instead of a string to be checked for exact matching you can also supply a regular expression (beware that you have to quote backslashes):
+
+```json
+{
+    "plugins": [
+        "header"
+    ],
+    "rules": {
+        "header/header": [2, "block", {"pattern": "^ Copyright \\d{4}\\n My Company$"}]
+    }
+}
+```
+
 ## Examples
 
 The following examples are all valid.
@@ -63,6 +76,14 @@ console.log(1);
 
 ```js
 //Copyright 2015
+//My Company
+console.log(1)
+```
+
+`"line", [{pattern: "^Copyright \\d{4}$"}, {pattern: "^My Company$"}]]`:
+
+```js
+//Copyright 2017
 //My Company
 console.log(1)
 ```
