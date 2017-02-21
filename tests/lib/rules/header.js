@@ -62,7 +62,7 @@ ruleTester.run("header", rule, {
         {
             code: "/* Copyright 2017\n Author: abc@example.com */",
             options: ["block", {pattern: "^ Copyright \\d{4}\\n Author: \\w+@\\w+\\.\\w+ $"}]
-        },
+        }
     ],
     invalid: [
         {
@@ -127,6 +127,6 @@ ruleTester.run("header", rule, {
             errors: [
                 {message: "incorrect header"}
             ]
-        },
+        }
     ]
 });
