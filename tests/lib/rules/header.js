@@ -127,6 +127,13 @@ ruleTester.run("header", rule, {
             errors: [
                 {message: "incorrect header"}
             ]
+        },
+        {
+            code: "/* Copyright 20\n Author: abc@example.com */",
+            options: ["block", {pattern: "^\\s*Copyright \\(c\\) \\d{4} ABC Inc. All rights reserved.\\s*$"}, "Copyright information error. Please add below line to your file.\n\tCopyright (c) " + new Date().getFullYear() + " ABC Inc. All rights reserved"],
+            errors: [
+                {message: "Copyright information error. Please add below line to your file.\n\tCopyright (c) " + new Date().getFullYear() + " ABC Inc. All rights reserved"}
+            ]
         }
     ]
 });
