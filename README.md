@@ -61,6 +61,19 @@ Instead of a string to be checked for exact matching you can also supply a regul
 }
 ```
 
+### 3 arguments
+In the 3 argument, the last is optional string error message, defined by user.
+```json
+{
+    "plugins": [
+        "header"
+    ],
+    "rules": {
+        "header/header": [2, "line", {"pattern": "^ Copyright \\d{4}\\n My Company$"}, "Copyright information error. Please add below line to your file.\n\tCopyright (c) 2017 ABC Inc. All rights reserved""]
+    }
+}
+```
+
 ## Examples
 
 The following examples are all valid.
