@@ -1,3 +1,7 @@
+# 1.1.0
+
+* Ignore shebangs above header comments to support ESLint 4+ (#11)
+
 # 1.0.0
 
 * Allow RegExp patterns in addition to strings (#2, #4)
