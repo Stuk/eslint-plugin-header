@@ -62,6 +62,14 @@ ruleTester.run("header", rule, {
         {
             code: "/* Copyright 2017\n Author: abc@example.com */",
             options: ["block", {pattern: "^ Copyright \\d{4}\\n Author: \\w+@\\w+\\.\\w+ $"}]
+        },
+        {
+          code: "#!/usr/bin/env node\n/**\n * Copyright\n */",
+          options: ["block", [
+            "*",
+            " * Copyright",
+            " "
+          ]]
         }
     ],
     invalid: [
