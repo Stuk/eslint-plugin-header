@@ -64,12 +64,12 @@ ruleTester.run("header", rule, {
             options: ["block", {pattern: "^ Copyright \\d{4}\\n Author: \\w+@\\w+\\.\\w+ $"}]
         },
         {
-          code: "#!/usr/bin/env node\n/**\n * Copyright\n */",
-          options: ["block", [
-            "*",
-            " * Copyright",
-            " "
-          ]]
+            code: "#!/usr/bin/env node\n/**\n * Copyright\n */",
+            options: ["block", [
+                "*",
+                " * Copyright",
+                " "
+            ]]
         }
     ],
     invalid: [
