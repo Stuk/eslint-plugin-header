@@ -78,42 +78,48 @@ ruleTester.run("header", rule, {
             options: ["block", "Copyright 2015, My Company"],
             errors: [
                 {message: "missing header"}
-            ]
+            ],
+            output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
         },
         {
             code: "//Copyright 2014, My Company\nconsole.log(1);",
             options: ["block", "Copyright 2015, My Company"],
             errors: [
                 {message: "header should be a block comment"}
-            ]
+            ],
+            output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
         },
         {
             code: "/*Copyright 2014, My Company*/\nconsole.log(1);",
             options: ["line", "Copyright 2015, My Company"],
             errors: [
                 {message: "header should be a line comment"}
-            ]
+            ],
+            output: "//Copyright 2015, My Company\nconsole.log(1);"
         },
         {
             code: "/*Copyright 2014, My Company*/\nconsole.log(1);",
             options: ["block", "Copyright 2015, My Company"],
             errors: [
                 {message: "incorrect header"}
-            ]
+            ],
+            output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
         },
         {
             code: "//Copyright 2014\n//My Company\nconsole.log(1)",
             options: ["line", "Copyright 2015\nMy Company"],
             errors: [
                 {message: "incorrect header"}
-            ]
+            ],
+            output: "//Copyright 2015\n//My Company\nconsole.log(1)"
         },
         {
             code: "//Copyright 2015",
             options: ["line", "Copyright 2015\nMy Company"],
             errors: [
                 {message: "incorrect header"}
-            ]
+            ],
+            output: "//Copyright 2015\n//My Company\n"
         },
         {
             code: "// Copyright 2017 trailing",
