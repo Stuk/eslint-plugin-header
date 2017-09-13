@@ -1,3 +1,7 @@
+# 1.2.0
+
+* Add auto fix functionality (eslint `--fix` option) (#12)
+
 # 1.1.0
 
 * Ignore shebangs above header comments to support ESLint 4+ (#11)
