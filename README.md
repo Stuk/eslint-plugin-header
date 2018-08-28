@@ -7,7 +7,7 @@ Often you will want to have a copyright notice at the top of every file. This ES
 
 ## Usage
 
-This rule takes 1 or 2 arguments.
+This rule takes 1 or 2 arguments with an optional settings object.
 
 ### 1 argument
 
@@ -35,7 +35,7 @@ Due to limitations in eslint plugins, the file is read relative to the working d
 
 ### 2 arguments
 
-In the 2 argument form the first must be either `"block"` or `"line"` to indiciate what style of comment should be used. The second is either a string (including newlines) of the comment, or an array of each line of the comment.
+In the 2 argument form the first must be either `"block"` or `"line"` to indicate what style of comment should be used. The second is either a string (including newlines) of the comment, or an array of each line of the comment.
 
 ```json
 {
@@ -60,6 +60,16 @@ Instead of a string to be checked for exact matching you can also supply a regul
     }
 }
 ```
+
+### Line Endings
+
+The rule works with both unix and windows line endings. For ESLint `--fix`, the rule will use the line ending format of the current operating system (via the node `os` package). This setting can be overwritten as follows:
+```json
+"rules": {
+    "header/header": [2, "block", ["Copyright 2018", "My Company"], {"lineEndings": "windows"}]
+}
+```
+Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 
 ## Examples
 
