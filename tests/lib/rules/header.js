@@ -70,6 +70,22 @@ ruleTester.run("header", rule, {
                 " * Copyright",
                 " "
             ]]
+        },
+        {
+            code: "// Copyright 2015\r\n// My Company\r\nconsole.log(1)",
+            options: ["tests/support/line.js"]
+        },
+        {
+            code: "//Copyright 2018\r\n//My Company\r\n/* DOCS */",
+            options: ["line", ["Copyright 2018", "My Company"]]
+        },
+        {
+            code: "/*Copyright 2018\r\nMy Company*/\r\nconsole.log(1)",
+            options: ["block", ["Copyright 2018", "My Company"], {"lineEndings": "windows"}]
+        },
+        {
+            code: "/*Copyright 2018\nMy Company*/\nconsole.log(1)",
+            options: ["block", ["Copyright 2018", "My Company"], {"lineEndings": "unix"}]
         }
     ],
     invalid: [
@@ -138,6 +154,13 @@ ruleTester.run("header", rule, {
         {
             code: "/* Copyright 2017-01-02\n Author: abc@example.com */",
             options: ["block", {pattern: "^ Copyright \\d+\\n Author: \\w+@\\w+\\.\\w+ $"}],
+            errors: [
+                {message: "incorrect header"}
+            ]
+        },
+        {
+            code: "/*Copyright 2018\r\nMy Company*/\r\nconsole.log(1)",
+            options: ["block", ["Copyright 2018", "My Company"], {"lineEndings": "unix"}],
             errors: [
                 {message: "incorrect header"}
             ]
