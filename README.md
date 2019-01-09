@@ -71,6 +71,16 @@ The rule works with both unix and windows line endings. For ESLint `--fix`, the 
 ```
 Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 
+It is also possible to include patterns for the block comment array checks:
+```json
+"rules": {
+    "header/header": [2, "block", [
+        { pattern: "Copyright \\d{4}" }, 
+        "My Company"
+    ]]
+}
+```
+
 ## Examples
 
 The following examples are all valid.
