@@ -154,6 +154,14 @@ ruleTester.run("header", rule, {
             ]
         },
         {
+            code: "// Copyright 2017 trailing",
+            options: ["line", {pattern: "^ Copyright \\d+$", template: " Copyright 2018"}],
+            errors: [
+                {message: "incorrect header"}
+            ],
+            output: "// Copyright 2018\n"
+        },
+        {
             code: "// Copyright 2017\n// Author: ab-c@example.com",
             options: ["line", [{pattern: "Copyright \\d+"}, {pattern: "^ Author: \\w+@\\w+\\.\\w+$"}]],
             errors: [
@@ -166,6 +174,19 @@ ruleTester.run("header", rule, {
             errors: [
                 {message: "incorrect header"}
             ]
+        },
+        {
+            code: "/*************************\n * Copyright 2015\n * All your base are belong to us!\n *************************/\nconsole.log(1)",
+            options: ["block", [
+                "************************",
+                { pattern: " \\* Copyright \\d{4}", template: " * Copyright 2019" },
+                " * My Company",
+                " ************************"
+            ]],
+            errors: [
+                {message: "incorrect header"}
+            ],
+            output: "/*************************\n * Copyright 2019\n * My Company\n *************************/\nconsole.log(1)"
         }
     ]
 });
