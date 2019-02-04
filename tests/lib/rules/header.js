@@ -86,6 +86,15 @@ ruleTester.run("header", rule, {
         {
             code: "/*Copyright 2018\nMy Company*/\nconsole.log(1)",
             options: ["block", ["Copyright 2018", "My Company"], {"lineEndings": "unix"}]
+        },
+        {
+            code: "/*************************\n * Copyright 2015\n * My Company\n *************************/\nconsole.log(1)",
+            options: ["block", [
+                "************************",
+                { pattern: " \\* Copyright \\d{4}" },
+                " * My Company",
+                " ************************"
+            ]]
         }
     ],
     invalid: [
@@ -122,6 +131,23 @@ ruleTester.run("header", rule, {
             output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
         },
         {
+            // Test extra line in comment
+            code: "/*Copyright 2015\nMy Company\nExtra*/\nconsole.log(1);",
+            options: ["block", ["Copyright 2015", "My Company"]],
+            errors: [
+                {message: "incorrect header"}
+            ],
+            output: "/*Copyright 2015\nMy Company*/\nconsole.log(1);"
+        },
+        {
+            code: "/*Copyright 2015\n*/\nconsole.log(1);",
+            options: ["block", ["Copyright 2015", "My Company"]],
+            errors: [
+                {message: "incorrect header"}
+            ],
+            output: "/*Copyright 2015\nMy Company*/\nconsole.log(1);"
+        },
+        {
             code: "//Copyright 2014\n//My Company\nconsole.log(1)",
             options: ["line", "Copyright 2015\nMy Company"],
             errors: [
@@ -145,6 +171,22 @@ ruleTester.run("header", rule, {
             ]
         },
         {
+            code: "// Copyright 2017 trailing",
+            options: ["line", {pattern: "^ Copyright \\d+$", template: " Copyright 2018"}],
+            errors: [
+                {message: "incorrect header"}
+            ],
+            output: "// Copyright 2018\n"
+        },
+        {
+            code: "// Copyright 2017 trailing\n// Someone",
+            options: ["line", [{pattern: "^ Copyright \\d+$", template: " Copyright 2018"}, " My Company"]],
+            errors: [
+                {message: "incorrect header"}
+            ],
+            output: "// Copyright 2018\n// My Company\n"
+        },
+        {
             code: "// Copyright 2017\n// Author: ab-c@example.com",
             options: ["line", [{pattern: "Copyright \\d+"}, {pattern: "^ Author: \\w+@\\w+\\.\\w+$"}]],
             errors: [
@@ -159,11 +201,17 @@ ruleTester.run("header", rule, {
             ]
         },
         {
-            code: "/*Copyright 2018\r\nMy Company*/\r\nconsole.log(1)",
-            options: ["block", ["Copyright 2018", "My Company"], {"lineEndings": "unix"}],
+            code: "/*************************\n * Copyright 2015\n * All your base are belong to us!\n *************************/\nconsole.log(1)",
+            options: ["block", [
+                "************************",
+                { pattern: " \\* Copyright \\d{4}", template: " * Copyright 2019" },
+                " * My Company",
+                " ************************"
+            ]],
             errors: [
                 {message: "incorrect header"}
-            ]
+            ],
+            output: "/*************************\n * Copyright 2019\n * My Company\n *************************/\nconsole.log(1)"
         }
     ]
 });
