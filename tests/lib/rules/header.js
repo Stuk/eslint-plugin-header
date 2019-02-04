@@ -179,6 +179,14 @@ ruleTester.run("header", rule, {
             output: "// Copyright 2018\n"
         },
         {
+            code: "// Copyright 2017 trailing\n// Someone",
+            options: ["line", [{pattern: "^ Copyright \\d+$", template: " Copyright 2018"}, " My Company"]],
+            errors: [
+                {message: "incorrect header"}
+            ],
+            output: "// Copyright 2018\n// My Company\n"
+        },
+        {
             code: "// Copyright 2017\n// Author: ab-c@example.com",
             options: ["line", [{pattern: "Copyright \\d+"}, {pattern: "^ Author: \\w+@\\w+\\.\\w+$"}]],
             errors: [

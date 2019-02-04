@@ -48,7 +48,9 @@ In the 2 argument form the first must be either `"block"` or `"line"` to indicat
 }
 ```
 
-Instead of a string to be checked for exact matching you can also supply a regular expression (beware that you have to quote backslashes):
+#### Regular expressions
+
+Instead of a string to be checked for exact matching you can also supply a regular expression. Be aware that you have to escape backslashes:
 
 ```json
 {
@@ -56,7 +58,33 @@ Instead of a string to be checked for exact matching you can also supply a regul
         "header"
     ],
     "rules": {
-        "header/header": [2, "block", {"pattern": "^ Copyright \\d{4}\\n My Company$"}]
+        "header/header": [2, "block", [
+            {"pattern": " Copyright \\d{4}"},
+            "My Company"
+        ]]
+    }
+}
+```
+
+This would match:
+
+```js
+/* Copyright 2808
+My Company*/
+```
+
+When you use a regular expression `pattern`, you can also provide a `template` property, to provide the comment value when using `eslint --fix`:
+
+```json
+{
+    "plugins": [
+        "header"
+    ],
+    "rules": {
+        "header/header": [2, "block", [
+            {"pattern": " Copyright \\d{4}", "template": " Copyright 2019"}, 
+            "My Company"
+        ]]
     }
 }
 ```
@@ -70,16 +98,6 @@ The rule works with both unix and windows line endings. For ESLint `--fix`, the 
 }
 ```
 Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
-
-It is also possible to include patterns for the block comment array checks:
-```json
-"rules": {
-    "header/header": [2, "block", [
-        { pattern: "Copyright \\d{4}" }, 
-        "My Company"
-    ]]
-}
-```
 
 ## Examples
 
