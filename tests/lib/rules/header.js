@@ -131,6 +131,23 @@ ruleTester.run("header", rule, {
             output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
         },
         {
+            // Test extra line in comment
+            code: "/*Copyright 2015\nMy Company\nExtra*/\nconsole.log(1);",
+            options: ["block", ["Copyright 2015", "My Company"]],
+            errors: [
+                {message: "incorrect header"}
+            ],
+            output: "/*Copyright 2015\nMy Company*/\nconsole.log(1);"
+        },
+        {
+            code: "/*Copyright 2015\n*/\nconsole.log(1);",
+            options: ["block", ["Copyright 2015", "My Company"]],
+            errors: [
+                {message: "incorrect header"}
+            ],
+            output: "/*Copyright 2015\nMy Company*/\nconsole.log(1);"
+        },
+        {
             code: "//Copyright 2014\n//My Company\nconsole.log(1)",
             options: ["line", "Copyright 2015\nMy Company"],
             errors: [
