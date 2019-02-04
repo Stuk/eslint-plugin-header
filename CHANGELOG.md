@@ -1,3 +1,9 @@
+# 3.0.0
+
+* Allow regexp in multiline arrays (#23)
+* Add `template` option for regexps, for `eslint --fix` (#23)
+* Update eslint to v5.12.0 (#19)
+
 # 2.0.0
 
 * Use the OS's line endings (`\n` on *nix, `\r\n` on Windows) when parsing and fixing comments. This can be configured with the `lineEndings` option. Major version bump as this could be a breaking change for projects.
