@@ -165,14 +165,14 @@ Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 The following rules are all valid within the `.eslintrc.*` file:
 
 ---
-`"header/header": [2, "block", "Copyright 2015, My Company"]`:
+`"header/header": [2, "block", "Copyright 2015, My Company"]`
 
 ```js
 /*Copyright 2015, My Company*/
 console.log(1);
 ```
 ---
-`"header/header": [2, "line", ["Copyright 2015", "My Company"]]`:
+`"header/header": [2, "line", ["Copyright 2015", "My Company"]]`
 
 ```js
 //Copyright 2015
@@ -180,7 +180,7 @@ console.log(1);
 console.log(1);
 ```
 ---
-`"header/header": [2, "line", [{pattern: "^Copyright \\d{4}$"}, {pattern: "^My Company$"}]]`:
+`"header/header": [2, "line", [{pattern: "^Copyright \\d{4}$"}, {pattern: "^My Company$"}]]`
 
 ```js
 //Copyright 2017
@@ -211,7 +211,7 @@ console.log(1);
 ### With Vue support
 
 ---
-`"header/header": [2, "block", "Copyright 2015, My Company"]`:
+`"header/header": [2, "block", "Copyright 2015, My Company"]`
 
 ```vue
 <script>
@@ -220,7 +220,7 @@ console.log(1);
 </script>
 ```
 ---
-`"header/header": [2, "line", ["Copyright 2015", "My Company"]]`:
+`"header/header": [2, "line", ["Copyright 2015", "My Company"]]`
 
 ```vue
 <script>
