@@ -162,15 +162,16 @@ Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 
 ## Examples
 
-The following rules are all valid.
+The following rules are all valid within the `.eslintrc.*` file:
 
+---
 `"header/header": [2, "block", "Copyright 2015, My Company"]`:
 
 ```js
 /*Copyright 2015, My Company*/
 console.log(1);
 ```
-
+---
 `"header/header": [2, "line", ["Copyright 2015", "My Company"]]`:
 
 ```js
@@ -178,7 +179,7 @@ console.log(1);
 //My Company
 console.log(1);
 ```
-
+---
 `"header/header": [2, "line", [{pattern: "^Copyright \\d{4}$"}, {pattern: "^My Company$"}]]`:
 
 ```js
@@ -186,9 +187,10 @@ console.log(1);
 //My Company
 console.log(1);
 ```
-
+---
 ### With more decoration
 
+---
 ```json
 "header/header": [2, "block", [
     "************************",
@@ -205,9 +207,10 @@ console.log(1);
  *************************/
  console.log(1);
 ```
-
+---
 ### With Vue support
 
+---
 `"header/header": [2, "block", "Copyright 2015, My Company"]`:
 
 ```vue
@@ -216,7 +219,7 @@ console.log(1);
 console.log(1);
 </script>
 ```
-
+---
 `"header/header": [2, "line", ["Copyright 2015", "My Company"]]`:
 
 ```vue
@@ -226,7 +229,7 @@ console.log(1);
 console.log(1);
 </script>
 ```
-
+---
 
 ## License
 
