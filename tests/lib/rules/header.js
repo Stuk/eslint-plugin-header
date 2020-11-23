@@ -133,7 +133,10 @@ ruleTester.run("header", rule, {
         },
         {
             code: "//Copyright (c) 2016, My Company\n",
-            options: ["line", { pattern: "Copyright \\(c\\) 2016, My Company", template: "Copyright (c) 2016, My Company" }]
+            options: ["line", {
+                pattern: "Copyright \\(c\\) 2016, My Company",
+                template: "Copyright (c) 2016, My Company",
+            }]
         },
     ],
     invalid: [
@@ -307,6 +310,17 @@ ruleTester.run("header", rule, {
                 {message: "missing header"}
             ],
             output: "<script>/*Copyright 2015, My Company*/\nconsole.log(1);</script>"
+        },
+        {
+            code: "console.log(1);",
+            options: ["line", {
+                pattern: "Copyright \\(c\\) 2016, My Company",
+                template: "Copyright (c) 2016, My Company"
+            }],
+            errors: [
+                {message: "missing header"}
+            ],
+            output: "//Copyright (c) 2016, My Company\nconsole.log(1);"
         },
     ]
 });
