@@ -127,6 +127,14 @@ ruleTester.run("header", rule, {
             code: "<script>\n/**\n * Copyright 2015\n * My Company\n **/\n</script>",
             options: ["block", "*\n * Copyright 2015\n * My Company\n *"]
         },
+        {
+            code: "//Copyright (c) 2016, My Company\n",
+            options: ["line", "Copyright (c) 2016, My Company"]
+        },
+        {
+            code: "//Copyright (c) 2016, My Company\n",
+            options: ["line", { pattern: "Copyright \\(c\\) 2016, My Company", template: "Copyright (c) 2016, My Company" }]
+        },
     ],
     invalid: [
         {
