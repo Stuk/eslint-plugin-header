@@ -162,16 +162,16 @@ Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 
 ## Examples
 
-The following examples are all valid.
+The following rules are all valid.
 
-`"block", "Copyright 2015, My Company"`:
+`"header/header": [2, "block", "Copyright 2015, My Company"]`:
 
 ```js
 /*Copyright 2015, My Company*/
 console.log(1);
 ```
 
-`"line", ["Copyright 2015", "My Company"]]`:
+`"header/header": [2, "line", ["Copyright 2015", "My Company"]]`:
 
 ```js
 //Copyright 2015
@@ -179,7 +179,7 @@ console.log(1);
 console.log(1);
 ```
 
-`"line", [{pattern: "^Copyright \\d{4}$"}, {pattern: "^My Company$"}]]`:
+`"header/header": [2, "line", [{pattern: "^Copyright \\d{4}$"}, {pattern: "^My Company$"}]]`:
 
 ```js
 //Copyright 2017
@@ -208,7 +208,7 @@ console.log(1);
 
 ### With Vue support
 
-`"block", "Copyright 2015, My Company"`:
+`"header/header": [2, "block", "Copyright 2015, My Company"]`:
 
 ```vue
 <script>
@@ -217,7 +217,7 @@ console.log(1);
 </script>
 ```
 
-`"line", ["Copyright 2015", "My Company"]]`:
+`"header/header": [2, "line", ["Copyright 2015", "My Company"]]`:
 
 ```vue
 <script>
