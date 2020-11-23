@@ -137,7 +137,7 @@ When you use a regular expression `pattern`, you can also provide a `template` p
     ],
     "rules": {
         "header/header": [2, "block", [
-            {"pattern": " Copyright \\d{4}", "template": " Copyright 2019"}, 
+            {"pattern": " Copyright \\d{4}", "template": " Copyright 2019"},
             "My Company"
         ]]
     }
@@ -153,6 +153,12 @@ The rule works with both unix and windows line endings. For ESLint `--fix`, the 
 }
 ```
 Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
+
+### Vue support
+
+`eslint-plugin-header` now supports `.vue` files. Please see installation instructions for [eslint-plugin-vue](https://eslint.vuejs.org/user-guide/) before trying to integrate with `eslint-plugin-header`. There are some caveats to be aware of:
+* `<script>` tag must be defined within a `.vue` file (even if it is empty), otherwise the linter will crash.
+* `<script>` tag must be defined at the top of a `.vue` file, otherwise the linter won't realize the comment is in the file and will inject it multiple times.
 
 ## Examples
 
@@ -170,7 +176,7 @@ console.log(1);
 ```js
 //Copyright 2015
 //My Company
-console.log(1)
+console.log(1);
 ```
 
 `"line", [{pattern: "^Copyright \\d{4}$"}, {pattern: "^My Company$"}]]`:
@@ -178,7 +184,7 @@ console.log(1)
 ```js
 //Copyright 2017
 //My Company
-console.log(1)
+console.log(1);
 ```
 
 ### With more decoration
@@ -199,6 +205,28 @@ console.log(1)
  *************************/
  console.log(1);
 ```
+
+### With Vue support
+
+`"block", "Copyright 2015, My Company"`:
+
+```vue
+<script>
+/*Copyright 2015, My Company*/
+console.log(1);
+</script>
+```
+
+`"line", ["Copyright 2015", "My Company"]]`:
+
+```vue
+<script>
+//Copyright 2015
+//My Company
+console.log(1);
+</script>
+```
+
 
 ## License
 
