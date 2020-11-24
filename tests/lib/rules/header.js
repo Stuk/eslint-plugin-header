@@ -3,7 +3,10 @@
 var rule = require("../../../lib/rules/header");
 var RuleTester = require("eslint").RuleTester;
 
-var ruleTester = new RuleTester();
+var ruleTester = new RuleTester({
+    parser: require.resolve("vue-eslint-parser"),
+    parserOptions: { ecmaVersion: 2020, sourceType: "module" },
+});
 ruleTester.run("header", rule, {
     valid: [
         {
@@ -115,7 +118,26 @@ ruleTester.run("header", rule, {
         {
             code: "/**\n * Copyright 2020\n * My Company\n **/\n\n/*Log number one*/\nconsole.log(1);",
             options: ["block", "*\n * Copyright 2020\n * My Company\n *", 2],
-        }
+        },
+        {
+            code: "<script>\n//Copyright 2015, My Company\n</script>",
+            options: ["line", "Copyright 2015, My Company"]
+        },
+        {
+            code: "<script>\n/**\n * Copyright 2015\n * My Company\n **/\n</script>",
+            options: ["block", "*\n * Copyright 2015\n * My Company\n *"]
+        },
+        {
+            code: "//Copyright (c) 2016, My Company\n",
+            options: ["line", "Copyright (c) 2016, My Company"]
+        },
+        {
+            code: "//Copyright (c) 2016, My Company\n",
+            options: ["line", {
+                pattern: "Copyright \\(c\\) 2016, My Company",
+                template: "Copyright (c) 2016, My Company",
+            }]
+        },
     ],
     invalid: [
         {
@@ -272,6 +294,33 @@ ruleTester.run("header", rule, {
                 {message: "no newline after header"}
             ],
             output: "//Copyright 2020\n//My Company\n\nconsole.log(1);\n//Comment\nconsole.log(2);\n//Comment"
-        }
+        },
+        {
+            code: "<script>console.log(1);</script>",
+            options: ["line", "Copyright 2015, My Company"],
+            errors: [
+                {message: "missing header"}
+            ],
+            output: "<script>//Copyright 2015, My Company\nconsole.log(1);</script>"
+        },
+        {
+            code: "<script>console.log(1);</script>",
+            options: ["block", "Copyright 2015, My Company"],
+            errors: [
+                {message: "missing header"}
+            ],
+            output: "<script>/*Copyright 2015, My Company*/\nconsole.log(1);</script>"
+        },
+        {
+            code: "console.log(1);",
+            options: ["line", {
+                pattern: "Copyright \\(c\\) 2016, My Company",
+                template: "Copyright (c) 2016, My Company"
+            }],
+            errors: [
+                {message: "missing header"}
+            ],
+            output: "//Copyright (c) 2016, My Company\nconsole.log(1);"
+        },
     ]
 });

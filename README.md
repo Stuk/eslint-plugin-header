@@ -137,7 +137,7 @@ When you use a regular expression `pattern`, you can also provide a `template` p
     ],
     "rules": {
         "header/header": [2, "block", [
-            {"pattern": " Copyright \\d{4}", "template": " Copyright 2019"}, 
+            {"pattern": " Copyright \\d{4}", "template": " Copyright 2019"},
             "My Company"
         ]]
     }
@@ -154,35 +154,56 @@ The rule works with both unix and windows line endings. For ESLint `--fix`, the 
 ```
 Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 
+### Vue support
+
+`eslint-plugin-header` now supports `.vue` files. Please see installation instructions for [eslint-plugin-vue](https://eslint.vuejs.org/user-guide/) before trying to integrate with `eslint-plugin-header`. There are some caveats to be aware of:
+* `<script>` tag must be defined within a `.vue` file, otherwise the linter will crash.
+* `<script>` tag must be defined at the top of a `.vue` file, otherwise the linter won't realize the comment is in the file and will inject it multiple times.
+* `<script>` tag must contain at least `export default {
+    name: 'component-name'
+}` otherwise the linter won't realize the comment is in the file and will inject it multiple times.
+
+It is suggested to use `vue/component-tags-order` rule in parallel to ensure `<script>` tags are at the top of each `.vue` file (part of `eslint-plugin-vue`, see [eslint-plugin-vue/component-tags-order](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/component-tags-order.md) for more information):
+```json
+"vue/component-tags-order": [
+    2,
+    {
+        "order": ["script", "template", "style"]
+    }
+]
+```
+
 ## Examples
 
-The following examples are all valid.
+The following rules are all valid within the `.eslintrc.*` file:
 
-`"block", "Copyright 2015, My Company"`:
+---
+`"header/header": [2, "block", "Copyright 2015, My Company"]`
 
 ```js
 /*Copyright 2015, My Company*/
 console.log(1);
 ```
-
-`"line", ["Copyright 2015", "My Company"]]`:
+---
+`"header/header": [2, "line", ["Copyright 2015", "My Company"]]`
 
 ```js
 //Copyright 2015
 //My Company
-console.log(1)
+console.log(1);
 ```
-
-`"line", [{pattern: "^Copyright \\d{4}$"}, {pattern: "^My Company$"}]]`:
+---
+`"header/header": [2, "line", [{pattern: "^Copyright \\d{4}$"}, {pattern: "^My Company$"}]]`
 
 ```js
 //Copyright 2017
 //My Company
-console.log(1)
+console.log(1);
 ```
-
+---
 ### With more decoration
 
+---
 ```json
 "header/header": [2, "block", [
     "************************",
@@ -199,6 +220,29 @@ console.log(1)
  *************************/
  console.log(1);
 ```
+---
+### With Vue support
+
+---
+`"header/header": [2, "block", "Copyright 2015, My Company"]`
+
+```vue
+<script>
+/*Copyright 2015, My Company*/
+console.log(1);
+</script>
+```
+---
+`"header/header": [2, "line", ["Copyright 2015", "My Company"]]`
+
+```vue
+<script>
+//Copyright 2015
+//My Company
+console.log(1);
+</script>
+```
+---
 
 ## License
 
