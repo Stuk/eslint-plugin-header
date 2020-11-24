@@ -157,8 +157,11 @@ Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 ### Vue support
 
 `eslint-plugin-header` now supports `.vue` files. Please see installation instructions for [eslint-plugin-vue](https://eslint.vuejs.org/user-guide/) before trying to integrate with `eslint-plugin-header`. There are some caveats to be aware of:
-* `<script>` tag must be defined within a `.vue` file (even if it is empty), otherwise the linter will crash.
+* `<script>` tag must be defined within a `.vue` file, otherwise the linter will crash.
 * `<script>` tag must be defined at the top of a `.vue` file, otherwise the linter won't realize the comment is in the file and will inject it multiple times.
+* `<script>` tag must contain at least `export default {
+    name: 'component-name'
+}` otherwise the linter won't realize the comment is in the file and will inject it multiple times.
 
 ## Examples
 
