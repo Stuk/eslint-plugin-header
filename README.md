@@ -163,6 +163,16 @@ Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
     name: 'component-name'
 }` otherwise the linter won't realize the comment is in the file and will inject it multiple times.
 
+It is suggested to use `vue/component-tags-order` rule in parallel to ensure `<script>` tags are at the top of each `.vue` file (part of `eslint-plugin-vue`, see [eslint-plugin-vue/component-tags-order](https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/component-tags-order.md) for more information):
+```json
+'vue/component-tags-order': [
+    2,
+    {
+    'order': ['script', 'template', 'style'],
+    }
+],
+```
+
 ## Examples
 
 The following rules are all valid within the `.eslintrc.*` file:
