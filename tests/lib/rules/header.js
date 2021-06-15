@@ -199,6 +199,22 @@ ruleTester.run("header", rule, {
             ]
         },
         {
+            code: "console.log(1);",
+            options: ["line", {pattern: "^ Copyright \\d+$"}],
+            errors: [
+                {message: "missing header"}
+            ],
+            output: "console.log(1);"
+        },
+        {
+            code: "console.log(1);",
+            options: ["line", {pattern: "^ Copyright \\d+$", template: " Copyright 2018"}],
+            errors: [
+                {message: "missing header"}
+            ],
+            output: "// Copyright 2018\nconsole.log(1);"
+        },
+        {
             code: "// Copyright 2017 trailing",
             options: ["line", {pattern: "^ Copyright \\d+$", template: " Copyright 2018"}],
             errors: [
