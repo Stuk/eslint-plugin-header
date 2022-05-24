@@ -135,6 +135,46 @@ ruleTester.run("header", rule, {
             output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
         },
         {
+            code: "\nconsole.log(1);",
+            options: ["block", "Copyright 2015, My Company"],
+            errors: [
+                { message: "missing header" }
+            ],
+            output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
+        },
+        {
+            code: "\n\nconsole.log(1);",
+            options: ["block", "Copyright 2015, My Company"],
+            errors: [
+                { message: "missing header" }
+            ],
+            output: "/*Copyright 2015, My Company*/\n\nconsole.log(1);"
+        },
+        {
+            code: "\n\n\nconsole.log(1);",
+            options: ["block", "Copyright 2015, My Company"],
+            errors: [
+                { message: "missing header" }
+            ],
+            output: "/*Copyright 2015, My Company*/\n\n\nconsole.log(1);"
+        },
+        {
+            code: "\nconsole.log(1);",
+            options: ["block", "Copyright 2015, My Company", 2],
+            errors: [
+                { message: "missing header" }
+            ],
+            output: "/*Copyright 2015, My Company*/\n\nconsole.log(1);"
+        },
+        {
+            code: "\nconsole.log(1);",
+            options: ["block", "Copyright 2015, My Company", 3],
+            errors: [
+                { message: "missing header" }
+            ],
+            output: "/*Copyright 2015, My Company*/\n\n\nconsole.log(1);"
+        },
+        {
             code: "\n/**\n * Copyright 2020\n * My Company\n **/\n\n/*Log number one*/\nconsole.log(1);",
             options: ["block", "*\n * Copyright 2020\n * My Company\n *", 2],
             errors: [
