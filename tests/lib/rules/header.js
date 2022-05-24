@@ -53,15 +53,15 @@ ruleTester.run("header", rule, {
         },
         {
             code: "// Copyright 2017",
-            options: ["line", {pattern: "^ Copyright \\d+$"}, 0]
+            options: ["line", { pattern: "^ Copyright \\d+$" }, 0]
         },
         {
             code: "// Copyright 2017\n// Author: abc@example.com",
-            options: ["line", [{pattern: "^ Copyright \\d+$"}, {pattern: "^ Author: \\w+@\\w+\\.\\w+$"}], 0]
+            options: ["line", [{ pattern: "^ Copyright \\d+$" }, { pattern: "^ Author: \\w+@\\w+\\.\\w+$" }], 0]
         },
         {
             code: "/* Copyright 2017\n Author: abc@example.com */",
-            options: ["block", {pattern: "^ Copyright \\d{4}\\n Author: \\w+@\\w+\\.\\w+ $"}, 0]
+            options: ["block", { pattern: "^ Copyright \\d{4}\\n Author: \\w+@\\w+\\.\\w+ $" }, 0]
         },
         {
             code: "#!/usr/bin/env node\n/**\n * Copyright\n */",
@@ -81,11 +81,11 @@ ruleTester.run("header", rule, {
         },
         {
             code: "/*Copyright 2018\r\nMy Company*/\r\nconsole.log(1)",
-            options: ["block", ["Copyright 2018", "My Company"], {"lineEndings": "windows"}]
+            options: ["block", ["Copyright 2018", "My Company"], { "lineEndings": "windows" }]
         },
         {
             code: "/*Copyright 2018\nMy Company*/\nconsole.log(1)",
-            options: ["block", ["Copyright 2018", "My Company"], {"lineEndings": "unix"}]
+            options: ["block", ["Copyright 2018", "My Company"], { "lineEndings": "unix" }]
         },
         {
             code: "/*************************\n * Copyright 2015\n * My Company\n *************************/\nconsole.log(1)",
@@ -130,15 +130,87 @@ ruleTester.run("header", rule, {
             code: "console.log(1);",
             options: ["block", "Copyright 2015, My Company"],
             errors: [
-                {message: "missing header"}
+                { message: "missing header" }
             ],
             output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
+        },
+        {
+            code: "\nconsole.log(1);",
+            options: ["block", "Copyright 2015, My Company"],
+            errors: [
+                { message: "missing header" }
+            ],
+            output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
+        },
+        {
+            code: "\n\nconsole.log(1);",
+            options: ["block", "Copyright 2015, My Company"],
+            errors: [
+                { message: "missing header" }
+            ],
+            output: "/*Copyright 2015, My Company*/\n\nconsole.log(1);"
+        },
+        {
+            code: "\n\n\nconsole.log(1);",
+            options: ["block", "Copyright 2015, My Company"],
+            errors: [
+                { message: "missing header" }
+            ],
+            output: "/*Copyright 2015, My Company*/\n\n\nconsole.log(1);"
+        },
+        {
+            code: "\nconsole.log(1);",
+            options: ["block", "Copyright 2015, My Company", 2],
+            errors: [
+                { message: "missing header" }
+            ],
+            output: "/*Copyright 2015, My Company*/\n\nconsole.log(1);"
+        },
+        {
+            code: "\nconsole.log(1);",
+            options: ["block", "Copyright 2015, My Company", 3],
+            errors: [
+                { message: "missing header" }
+            ],
+            output: "/*Copyright 2015, My Company*/\n\n\nconsole.log(1);"
+        },
+        {
+            code: "\n/**\n * Copyright 2020\n * My Company\n **/\n\n/*Log number one*/\nconsole.log(1);",
+            options: ["block", "*\n * Copyright 2020\n * My Company\n *", 2],
+            errors: [
+                { message: "unexpected preceding whitespace" }
+            ],
+            output: "/**\n * Copyright 2020\n * My Company\n **/\n\n/*Log number one*/\nconsole.log(1);",
+        },
+        {
+            code: " /**\n * Copyright 2020\n * My Company\n **/\n\n/*Log number one*/\nconsole.log(1);",
+            options: ["block", "*\n * Copyright 2020\n * My Company\n *", 2],
+            errors: [
+                { message: "unexpected preceding whitespace" }
+            ],
+            output: "/**\n * Copyright 2020\n * My Company\n **/\n\n/*Log number one*/\nconsole.log(1);",
+        },
+        {
+            code: "\n /**\n * Copyright 2020\n * My Company\n **/\n\n/*Log number one*/\nconsole.log(1);",
+            options: ["block", "*\n * Copyright 2020\n * My Company\n *", 2],
+            errors: [
+                { message: "unexpected preceding whitespace" }
+            ],
+            output: "/**\n * Copyright 2020\n * My Company\n **/\n\n/*Log number one*/\nconsole.log(1);",
+        },
+        {
+            code: "\n//Copyright 2018\r\n//My Company\r\n/* DOCS */",
+            options: ["line", ["Copyright 2018", "My Company"]],
+            errors: [
+                { message: "unexpected preceding whitespace" }
+            ],
+            output: "//Copyright 2018\r\n//My Company\r\n/* DOCS */",
         },
         {
             code: "//Copyright 2014, My Company\nconsole.log(1);",
             options: ["block", "Copyright 2015, My Company"],
             errors: [
-                {message: "header should be a block comment"}
+                { message: "header should be a block comment" }
             ],
             output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
         },
@@ -146,7 +218,7 @@ ruleTester.run("header", rule, {
             code: "/*Copyright 2014, My Company*/\nconsole.log(1);",
             options: ["line", "Copyright 2015, My Company"],
             errors: [
-                {message: "header should be a line comment"}
+                { message: "header should be a line comment" }
             ],
             output: "//Copyright 2015, My Company\nconsole.log(1);"
         },
@@ -154,7 +226,7 @@ ruleTester.run("header", rule, {
             code: "/*Copyright 2014, My Company*/\nconsole.log(1);",
             options: ["block", "Copyright 2015, My Company"],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ],
             output: "/*Copyright 2015, My Company*/\nconsole.log(1);"
         },
@@ -163,7 +235,7 @@ ruleTester.run("header", rule, {
             code: "/*Copyright 2015\nMy Company\nExtra*/\nconsole.log(1);",
             options: ["block", ["Copyright 2015", "My Company"]],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ],
             output: "/*Copyright 2015\nMy Company*/\nconsole.log(1);"
         },
@@ -171,7 +243,7 @@ ruleTester.run("header", rule, {
             code: "/*Copyright 2015\n*/\nconsole.log(1);",
             options: ["block", ["Copyright 2015", "My Company"]],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ],
             output: "/*Copyright 2015\nMy Company*/\nconsole.log(1);"
         },
@@ -179,7 +251,7 @@ ruleTester.run("header", rule, {
             code: "//Copyright 2014\n//My Company\nconsole.log(1)",
             options: ["line", "Copyright 2015\nMy Company"],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ],
             output: "//Copyright 2015\n//My Company\nconsole.log(1)"
         },
@@ -187,45 +259,45 @@ ruleTester.run("header", rule, {
             code: "//Copyright 2015",
             options: ["line", "Copyright 2015\nMy Company"],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ],
             output: "//Copyright 2015\n//My Company\n"
         },
         {
             code: "// Copyright 2017 trailing",
-            options: ["line", {pattern: "^ Copyright \\d+$"}],
+            options: ["line", { pattern: "^ Copyright \\d+$" }],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ]
         },
         {
             code: "// Copyright 2017 trailing",
-            options: ["line", {pattern: "^ Copyright \\d+$", template: " Copyright 2018"}],
+            options: ["line", { pattern: "^ Copyright \\d+$", template: " Copyright 2018" }],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ],
             output: "// Copyright 2018\n"
         },
         {
             code: "// Copyright 2017 trailing\n// Someone",
-            options: ["line", [{pattern: "^ Copyright \\d+$", template: " Copyright 2018"}, " My Company"]],
+            options: ["line", [{ pattern: "^ Copyright \\d+$", template: " Copyright 2018" }, " My Company"]],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ],
             output: "// Copyright 2018\n// My Company\n"
         },
         {
             code: "// Copyright 2017\n// Author: ab-c@example.com",
-            options: ["line", [{pattern: "Copyright \\d+"}, {pattern: "^ Author: \\w+@\\w+\\.\\w+$"}]],
+            options: ["line", [{ pattern: "Copyright \\d+" }, { pattern: "^ Author: \\w+@\\w+\\.\\w+$" }]],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ]
         },
         {
             code: "/* Copyright 2017-01-02\n Author: abc@example.com */",
-            options: ["block", {pattern: "^ Copyright \\d+\\n Author: \\w+@\\w+\\.\\w+ $"}],
+            options: ["block", { pattern: "^ Copyright \\d+\\n Author: \\w+@\\w+\\.\\w+ $" }],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ]
         },
         {
@@ -237,7 +309,7 @@ ruleTester.run("header", rule, {
                 " ************************"
             ]],
             errors: [
-                {message: "incorrect header"}
+                { message: "incorrect header" }
             ],
             output: "/*************************\n * Copyright 2019\n * My Company\n *************************/\nconsole.log(1)"
         },
@@ -245,7 +317,7 @@ ruleTester.run("header", rule, {
             code: "/*Copyright 2020, My Company*/console.log(1);",
             options: ["block", "Copyright 2020, My Company", 2],
             errors: [
-                {message: "no newline after header"}
+                { message: "no newline after header" }
             ],
             output: "/*Copyright 2020, My Company*/\n\nconsole.log(1);"
         },
@@ -253,7 +325,7 @@ ruleTester.run("header", rule, {
             code: "/*Copyright 2020, My Company*/console.log(1);",
             options: ["block", "Copyright 2020, My Company", 1],
             errors: [
-                {message: "no newline after header"}
+                { message: "no newline after header" }
             ],
             output: "/*Copyright 2020, My Company*/\nconsole.log(1);"
         },
@@ -261,7 +333,7 @@ ruleTester.run("header", rule, {
             code: "//Copyright 2020\n//My Company\nconsole.log(1);",
             options: ["line", ["Copyright 2020", "My Company"], 2],
             errors: [
-                {message: "no newline after header"}
+                { message: "no newline after header" }
             ],
             output: "//Copyright 2020\n//My Company\n\nconsole.log(1);"
         },
@@ -269,7 +341,7 @@ ruleTester.run("header", rule, {
             code: "/*Copyright 2020, My Company*/\nconsole.log(1);\n//Comment\nconsole.log(2);\n//Comment",
             options: ["block", "Copyright 2020, My Company", 2],
             errors: [
-                {message: "no newline after header"}
+                { message: "no newline after header" }
             ],
             output: "/*Copyright 2020, My Company*/\n\nconsole.log(1);\n//Comment\nconsole.log(2);\n//Comment"
         },
@@ -277,7 +349,7 @@ ruleTester.run("header", rule, {
             code: "//Copyright 2020\n//My Company\nconsole.log(1);\n//Comment\nconsole.log(2);\n//Comment",
             options: ["line", ["Copyright 2020", "My Company"], 2],
             errors: [
-                {message: "no newline after header"}
+                { message: "no newline after header" }
             ],
             output: "//Copyright 2020\n//My Company\n\nconsole.log(1);\n//Comment\nconsole.log(2);\n//Comment"
         }
