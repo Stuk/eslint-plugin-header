@@ -123,7 +123,11 @@ ruleTester.run("header", rule, {
                 " * Copyright",
                 " "
             ], 0]
-        }
+        },
+        {
+            code: "/* eslint-disable max-lines */\n/**\n * Copyright 2020\n * My Company\n **/\n\n/*Log number one*/\nconsole.log(1);",
+            options: ["block", "*\n * Copyright 2020\n * My Company\n *", 2, {"allowDisableFirst": true}],
+        },
     ],
     invalid: [
         {
