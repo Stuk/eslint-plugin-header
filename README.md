@@ -154,6 +154,16 @@ The rule works with both unix and windows line endings. For ESLint `--fix`, the 
 ```
 Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 
+### ESlint disable comments
+
+Sometimes you want to add a eslint-disable for the whole file before the header. This can be done by adding a settings as follows:
+
+```json
+"rules": {
+    "header/header": [2, "block", ["Copyright 2018", "My Company"], {"allowDisableFirst": true}]
+}
+```
+
 ## Examples
 
 The following examples are all valid.
