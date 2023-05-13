@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-header",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "ESLint plugin to ensure that files begin with given comment",
   "main": "index.js",
   "scripts": {
@@ -21,8 +21,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Stuk/eslint-plugin-header.git"
+    "url": "https://github.com/jeradrutnam/eslint-plugin-header.git"
   },
-  "author": "Stuart Knightley",
+  "author": "Jerad Rutnam",
   "license": "MIT"
 }

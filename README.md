@@ -154,6 +154,17 @@ The rule works with both unix and windows line endings. For ESLint `--fix`, the 
 ```
 Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 
+### Persist existing Year or Year Range
+
+For ESLint `--fix`, when replacing the header, if this option is true, it will persist the year or year-range of the old header, 
+regardless the year provided in the replacing template. 
+```json
+"rules": {
+    "header/header": [2, "block", ["Copyright 2018-2020", "My Company"], {"persistYear": true}]
+}
+```
+Example, any first match of `2021` or `2021-2023` will persist.
+
 ## Examples
 
 The following examples are all valid.
