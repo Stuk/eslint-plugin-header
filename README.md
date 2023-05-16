@@ -154,16 +154,32 @@ The rule works with both unix and windows line endings. For ESLint `--fix`, the 
 ```
 Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 
-### Persist existing Year or Year Range
+### Dynamically manipulate year in the template
 
-For ESLint `--fix`, when replacing the header, if this option is true, it will persist the year or year-range of the old header, 
-regardless the year provided in the replacing template. 
+For ESLint `--fix`, when replacing the header, with these options year can be dynamically include using config
 ```json
 "rules": {
-    "header/header": [2, "block", ["Copyright 2018-2020", "My Company"], {"persistYear": true}]
+    "header/header": [
+        2, 
+        "block", 
+        [{
+            "pattern": " Copyright \\d{4}", 
+            "template": " Copyright {{year}}"}, "My Company"
+        ],
+        {
+            "templateOptions": {
+                "forceEndYear": false, // Will add "-YYYY" if the `endYear` is not equal to `startYear`. `yearRange` has to be `true`
+                "endYear": 2022, // Will ignore if the `endYearPersist` is true. `yearRange` has to be `true`
+                "endYearPersist": true, // Will extract end year from the previous header and replace in the new header. `yearRange` has to be `true`
+                "startYear": new Date().getFullYear(), // Will ignore if the `startYearPersist` is `true`.
+                "startYearPersist": true, // Will extract start year from the previous header and replace in the new header
+                "yearRange": true, // If `true` year format will be "YYYY-YYYY" and if `false` year format will be "YYYY"
+                "yearRangeValidations": true // If `true` end date will be removed if it lower than start date. `yearRange` has to be `true`
+            }
+        }
+    ]
 }
 ```
-Example, any first match of `2021` or `2021-2023` will persist.
 
 ## Examples
 
