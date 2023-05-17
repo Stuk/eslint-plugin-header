@@ -154,6 +154,43 @@ The rule works with both unix and windows line endings. For ESLint `--fix`, the 
 ```
 Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 
+### Dynamically manipulate the year in the template
+
+When replacing the header, year can be dynamically manipulate and include using these options
+```js
+
+// eslintrc.js
+
+"rules": {
+    "header/header": [
+        2, 
+        "block", 
+        [{ "pattern": " Copyright \\d{4}", "template": " Copyright {{year}}" }, "My Company"],
+        {
+            "templateOptions": {
+                "forceEndYear": false,
+                "endYear": 2022,
+                "endYearPersist": true,
+                "startYear": new Date().getFullYear(),
+                "startYearPersist": true,
+                "yearRange": true,
+                "yearRangeValidations": true
+            }
+        }
+    ]
+}
+```
+
+| Config | Value Type | Description |
+|-|-|-|
+| forceEndYear | Boolean | `yearRange` has to be `true`. Will add "-YYYY" if the `endYear` is not equal to `startYear`. But if start year and current year is same it will convert to "YYYY" format |
+| endYear | Number | `yearRange` has to be `true`. Will ignore if the `endYearPersist` is `true`. |
+| endYearPersist | Boolean | `yearRange` has to be `true`. Will extract end year from the previous header and replace in the new header. |
+| startYear | Number| Will ignore if the `startYearPersist` is `true`. E.g., new Date().getFullYear() |
+| startYearPersist | Boolean | Will extract start year from the previous header and replace in the new header |
+| yearRange | Boolean | If `true` year format will be "YYYY-YYYY" and if `false` year format will be "YYYY" |
+| yearRangeValidations | Boolean | If `true` end date will be removed if it lower than start date. `yearRange` has to be `true` |
+
 ## Examples
 
 The following examples are all valid.

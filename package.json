@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-header",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "ESLint plugin to ensure that files begin with given comment",
   "main": "index.js",
   "scripts": {
@@ -9,8 +9,8 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "eslint": "^7.7.0",
-    "mocha": "^8.1.1"
+    "eslint": "^7.32.0",
+    "mocha": "^8.4.0"
   },
   "peerDependencies": {
     "eslint": ">=7.7.0"
