@@ -157,7 +157,10 @@ Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 ### Dynamically manipulate the year in the template
 
 When replacing the header, year can be dynamically manipulate and include using these options
-```json
+```js
+
+// eslintrc.js
+
 "rules": {
     "header/header": [
         2, 
