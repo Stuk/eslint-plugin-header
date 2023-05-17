@@ -162,10 +162,7 @@ When replacing the header, year can be dynamically manipulate and include using 
     "header/header": [
         2, 
         "block", 
-        [{
-            "pattern": " Copyright \\d{4}", 
-            "template": " Copyright {{year}}"}, "My Company"
-        ],
+        [{ "pattern": " Copyright \\d{4}", "template": " Copyright {{year}}" }, "My Company"],
         {
             "templateOptions": {
                 "forceEndYear": false,
