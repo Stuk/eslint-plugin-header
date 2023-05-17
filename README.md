@@ -154,9 +154,9 @@ The rule works with both unix and windows line endings. For ESLint `--fix`, the 
 ```
 Possible values are `unix` for `\n` and `windows` for `\r\n` line endings.
 
-### Dynamically manipulate year in the template
+### Dynamically manipulate the year in the template
 
-For ESLint `--fix`, when replacing the header, with these options year can be dynamically include using config
+When replacing the header, year can be dynamically manipulate and include using these options
 ```json
 "rules": {
     "header/header": [
@@ -168,18 +168,28 @@ For ESLint `--fix`, when replacing the header, with these options year can be dy
         ],
         {
             "templateOptions": {
-                "forceEndYear": false, // Will add "-YYYY" if the `endYear` is not equal to `startYear`. `yearRange` has to be `true`
-                "endYear": 2022, // Will ignore if the `endYearPersist` is true. `yearRange` has to be `true`
-                "endYearPersist": true, // Will extract end year from the previous header and replace in the new header. `yearRange` has to be `true`
-                "startYear": new Date().getFullYear(), // Will ignore if the `startYearPersist` is `true`.
-                "startYearPersist": true, // Will extract start year from the previous header and replace in the new header
-                "yearRange": true, // If `true` year format will be "YYYY-YYYY" and if `false` year format will be "YYYY"
-                "yearRangeValidations": true // If `true` end date will be removed if it lower than start date. `yearRange` has to be `true`
+                "forceEndYear": false,
+                "endYear": 2022,
+                "endYearPersist": true,
+                "startYear": new Date().getFullYear(),
+                "startYearPersist": true,
+                "yearRange": true,
+                "yearRangeValidations": true
             }
         }
     ]
 }
 ```
+
+| Config | Value Type | Description |
+|-|-|-|
+| forceEndYear | Boolean | `yearRange` has to be `true`. Will add "-YYYY" if the `endYear` is not equal to `startYear`. But if start year and current year is same it will convert to "YYYY" format |
+| endYear | String/Number | `yearRange` has to be `true`. Will ignore if the `endYearPersist` is `true`. |
+| endYearPersist | Boolean | `yearRange` has to be `true`. Will extract end year from the previous header and replace in the new header. |
+| startYear | String /Number| Will ignore if the `startYearPersist` is `true`. E.g., new Date().getFullYear() |
+| startYearPersist | Boolean | Will extract start year from the previous header and replace in the new header |
+| yearRange | Boolean | If `true` year format will be "YYYY-YYYY" and if `false` year format will be "YYYY" |
+| yearRangeValidations | Boolean | If `true` end date will be removed if it lower than start date. `yearRange` has to be `true` |
 
 ## Examples
 
