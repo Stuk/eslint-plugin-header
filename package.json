@@ -21,8 +21,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jeradrutnam/eslint-plugin-header.git"
+    "url": "https://github.com/Stuk/eslint-plugin-header.git"
   },
-  "author": "Jerad Rutnam",
+  "author": "Stuart Knightley",
   "license": "MIT"
 }
